@@ -13,7 +13,7 @@ class SplashPage extends StatefulWidget {
 
 class _SplashPageState extends State<SplashPage> {
   
-  final _loginBloc = LoginBloc(Repo());
+
 
   @override
   void didChangeDependencies() {

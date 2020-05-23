@@ -26,7 +26,9 @@ dependencies:
   flutter_bloc: ^4.0.0
   equatable: ^0.5.1
   bloc: ^4.0.0
-  get_it: ^4.0.2
+  get_it: ^3.0.3
+
+  dio: ^3.0.9
 
 
 

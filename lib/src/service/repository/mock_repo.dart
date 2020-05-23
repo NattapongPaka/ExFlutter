@@ -4,8 +4,8 @@ import 'package:ex_login/src/service/repository/base_repo.dart';
 class MockRepo extends BaseRepo{
   
   @override
-  Future login({String userName, String pass}) {
-    var u = UserModel(user: userName,pass: pass,fullName: "$userName");
+  Future<UserModel> login({String userName, String pass}) {
+    var u = UserModel(account: Account(firstName: "AAAA",lastName: "LastNameBB"));
     return Future.value(u);
   }
 

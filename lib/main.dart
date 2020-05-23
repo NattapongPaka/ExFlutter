@@ -1,4 +1,5 @@
 import 'package:ex_login/src/di/injection.dart';
+import 'package:ex_login/src/util/route.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,8 +26,8 @@ class SimpleBlocDelegate extends BlocDelegate {
   }
 }
 
-void main() {
-  Injection.init();
+void main() async{
+  await init();
   BlocSupervisor.delegate = SimpleBlocDelegate();
   runApp(MyApp());
 }
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: SplashPage(),
+      routes: MyRoute.route(),
     );
   }
 }

@@ -3,6 +3,7 @@ import 'package:ex_login/src/bloc/b.dart';
 import 'package:ex_login/src/bloc/login/bloc/login_bloc.dart';
 import 'package:ex_login/src/service/repository/repo.dart';
 import 'package:ex_login/src/ui/home/home.dart';
+import 'package:ex_login/src/util/route.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,8 +22,8 @@ class _LoginPageState extends State<LoginPage> {
 
   GlobalKey<ScaffoldState> _scaffoldState = GlobalKey();
 
-  //final _loginBloc = GetIt.I<LoginBloc>();
-  final _loginBloc = LoginBloc(Repo());
+  final _loginBloc = GetIt.I<LoginBloc>();
+  // final _loginBloc = LoginBloc(Repo());
 
   @override
   void initState() {
@@ -81,13 +82,34 @@ class _LoginPageState extends State<LoginPage> {
         color: Colors.blue,
         onPressed: () {
           //login();
-          _loginBloc.add(LoginInitEvent(
-            user: edtUserController.text,
-            pass: edtPassController.text,
-          ));
+          _loginBloc.add(LoginInitEvent(user: edtUserController.text,pass: edtPassController.text));
         },
         icon: Icon(Icons.lock),
         label: Text("Login"),
+      );
+    }
+
+     Widget buildButton1() {
+      return FlatButton.icon(
+        color: Colors.blue,
+        onPressed: () {
+          //login();
+          Navigator.of(context).pushNamed(RouteName.home2);
+        },
+        icon: Icon(Icons.lock),
+        label: Text("Home2"),
+      );
+    }
+
+     Widget buildButton2() {
+      return FlatButton.icon(
+        color: Colors.blue,
+        onPressed: () {
+          //login();
+         Navigator.of(context).pushNamed(RouteName.home3);
+        },
+        icon: Icon(Icons.lock),
+        label: Text("Home3"),
       );
     }
 
@@ -116,20 +138,16 @@ class _LoginPageState extends State<LoginPage> {
           bloc: _loginBloc,
           listener: (context, state) {
             print("State==$state");
-            // if (state is LoginSuccessState) {
-            //   // Navigator.of(context).push(
-            //   //   MaterialPageRoute(
-            //   //     builder: (context) => HomePage(),
-            //   //   ),
-            //   // );
-            // }
-            // if (state is LoginFailState) {
-            //   _scaffoldState.currentState.showSnackBar(
-            //     SnackBar(
-            //       content: Text("User or pass incorrect!"),
-            //     ),
-            //   );
-            // }
+            if (state is LoginSuccessState) {
+              Navigator.of(context).pushNamed(RouteName.home1);
+            }
+            if (state is LoginFailState) {
+              _scaffoldState.currentState.showSnackBar(
+                SnackBar(
+                  content: Text("User or pass incorrect!"),
+                ),
+              );
+            }
           },
           child: Column(
             children: <Widget>[
@@ -142,6 +160,8 @@ class _LoginPageState extends State<LoginPage> {
                 controller: edtPassController,
               ),
               buildButton(),
+              buildButton1(),
+              buildButton2(),
               buildWidget()
             ],
           ),

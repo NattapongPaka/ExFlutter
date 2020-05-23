@@ -14,7 +14,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   final BaseRepo repo;
 
-  LoginBloc(this.repo);
+  LoginBloc({this.repo});
 
   @override
   LoginState get initialState => LoginInitial();
@@ -28,9 +28,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       if(user.isEmpty || pass.isEmpty) {
         yield LoginFailState();
       }else {
-        String fullName = "${event.user} ${event.pass}";
-
-        UserModel userModel = UserModel(user: user,pass: pass,fullName: fullName);
+        
+        UserModel userModel = await repo.login(userName: event.user,pass: event.pass);
         
         yield LoginSuccessState(userModel: userModel);
       }

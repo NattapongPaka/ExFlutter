@@ -1,6 +1,8 @@
+
+import 'package:ex_login/src/model/user_model.dart';
+
 abstract class BaseRepo {
-  Future<dynamic> login({
-    String userName,
-    String pass,
-  });
+
+  Future<UserModel> login({String userName,String pass});
+
 }
